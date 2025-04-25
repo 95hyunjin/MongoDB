@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>주소록 입력</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>📬 주소록 등록</h1>
+    <form action="/save" method="POST">
+        <label>이름:</label><input type="text" name="name" required><br>
+        <label>전화번호:</label><input type="text" name="phone" required><br>
+        <label>이메일:</label><input type="email" name="email"><br>
+        <label>주소:</label><input type="text" name="address"><br>
+        <label>태그:</label><br>
+        <input type="checkbox" name="tags" value="친구"> 친구
+        <input type="checkbox" name="tags" value="가족"> 가족
+        <input type="checkbox" name="tags" value="회사"> 회사<br><br>
+        <input type="submit" value="저장">
+    </form>
+</body>
+</html>
