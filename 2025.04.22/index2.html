@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>부품 관리 시스템</title>
+    <style>
+        body { font-family: Arial; background-color: #f0f2f5; padding: 40px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        th { background-color: #2d85e8; color: white; }
+        img { max-height: 80px; }
+        form { margin-bottom: 30px; background: #fff; padding: 20px; border-radius: 10px; width: 700px; }
+        input, textarea { width: 100%; margin: 5px 0; padding: 10px; }
+        input[type="submit"] { background: #3498db; color: white; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>부품 관리</h1>
+
+    <form method="post" enctype="multipart/form-data" action="/add">
+        <input type="text" name="part_id" placeholder="부품 ID" required>
+        <input type="text" name="name" placeholder="부품명" required>
+        <input type="text" name="category" placeholder="카테고리">
+        <input type="text" name="manufacturer" placeholder="제조사">
+        <input type="number" name="stock" placeholder="재고수량">
+        <textarea name="description" placeholder="부품 설명"></textarea>
+        <input type="file" name="image">
+        <input type="submit" value="부품 추가">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>부품ID</th>
+                <th>부품명</th>
+                <th>카테고리</th>
+                <th>제조사</th>
+                <th>재고</th>
+                <th>설명</th>
+                <th>이미지</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for part in parts %}
+            <tr>
+                <td>{{ part['부품ID'] }}</td>
+                <td>{{ part['부품명'] }}</td>
+                <td>{{ part['카테고리'] }}</td>
+                <td>{{ part['제조사'] }}</td>
+                <td>{{ part['재고'] }}</td>
+                <td>{{ part['설명'] }}</td>
+                <td>
+                    {% if part['이미지'] %}
+                        <img src="{{ url_for('static', filename='images/' + part['이미지']) }}">
+                    {% endif %}
+                </td>
+                <td><a href="/delete/{{ part['부품ID'] }}" onclick="return confirm('삭제할까요?')">🗑️ 삭제</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
